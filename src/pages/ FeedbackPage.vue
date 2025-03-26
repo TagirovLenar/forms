@@ -20,16 +20,29 @@ import { ref } from 'vue';
 import { useStore } from 'vuex';
 import FormGenerator from '../components/FormGenerator.vue';
 
+// Типы для полей формы и данных формы
+interface Field {
+  label: string;
+  name: string;
+  type: 'input' | 'textarea' | 'select';
+  inputType?: string;
+  placeholder?: string;
+}
+
+interface FormData {
+  [key: string]: string; // Все поля формы будут строками
+}
+
 // Подключаем Vuex store
 const store = useStore();
 
-const formData = ref({
+const formData = ref<FormData>({
   name: '',
   email: '',
   message: ''
 });
 
-const fields = [
+const fields: Field[] = [
   { label: 'Имя', name: 'name', type: 'input', inputType: 'text' },
   { label: 'Электронная почта', name: 'email', type: 'input', inputType: 'email' },
   { label: 'Сообщение', name: 'message', type: 'textarea' }
@@ -40,6 +53,7 @@ const saveFormData = () => {
   store.dispatch('saveFormData', formData.value);
 };
 </script>
+
 
 <style scoped lang="scss">
 .form-container {

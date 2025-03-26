@@ -47,10 +47,11 @@
 
 <script lang="ts" setup>
 import { reactive, ref, computed } from 'vue';
-import { useRouter } from 'vue-router'; // Импортируем useRouter
+import { useRouter } from 'vue-router';
 import { Field, Form as VForm } from 'vee-validate';
 import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
+
 
 // Пропсы и поля формы
 const props = defineProps({
@@ -123,6 +124,7 @@ const cancelForm = () => {
   router.push('/'); // Переход на главную страницу
 };
 </script>
+
 
 
 <style lang="scss" scoped>

@@ -53,32 +53,36 @@
   import { ref } from 'vue';
   import FormGenerator from '../components/FormGenerator.vue';
   
-// Типизация формы
-interface FormData {
-  name: string;
-  email: string;
-  password: string;
-  gender: string;
+  // Типы для полей формы и данных формы
+  interface Field {
+    label: string;
+    name: 'name' | 'email' | 'password' | 'gender';  // Указываем конкретные имена для полей
+    type: 'input' | 'select';  // Типы полей
+    inputType?: 'text' | 'email' | 'password';  // Дополнительные параметры для input
+    options?: { value: string; label: string }[];  // Для поля select
+  }
+  
+  interface FormData {
+  [key: string]: string; // Все поля формы будут строками
 }
-
-// Данные формы
-const formData = ref<FormData>({
-  name: '',
-  email: '',
-  password: '',
-  gender: ''
-});
+  
+  // Данные формы
+  const formData = ref<FormData>({
+    name: '',
+    email: '',
+    password: '',
+    gender: ''
+  });
   
   // Описание полей формы
-  const fields = [
+  const fields: Field[] = [
     { label: 'Имя', name: 'name', type: 'input', inputType: 'text' },
     { label: 'Электронная почта', name: 'email', type: 'input', inputType: 'email' },
     { label: 'Пароль', name: 'password', type: 'input', inputType: 'password' },
     { label: 'Пол', name: 'gender', type: 'select', options: [{ value: 'male', label: 'Мужской' }, { value: 'female', label: 'Женский' }] }
   ];
-  
-
   </script>
+  
   
   <style scoped lang="scss">
   .form-container {

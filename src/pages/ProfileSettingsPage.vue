@@ -27,20 +27,31 @@
 import { ref } from 'vue';
 import FormGenerator from '../components/FormGenerator.vue';
 
+// Типизация данных формы
 interface FormData {
-  email: string;
-  acceptTerms: boolean;
+  [key: string]: string | boolean;  // Все поля могут быть либо строками, либо булевыми значениями
+  acceptTerms: boolean;  // Специальное поле для согласия, которое должно быть boolean
+}
+
+
+// Типизация полей формы
+interface FormField {
+  label: string;
+  name: keyof FormData;  // Ссылается на ключи объекта FormData
+  type: 'input' | 'checkbox';
+  inputType?: string;
+  placeholder?: string;
 }
 
 // Данные формы
 const formData = ref<FormData>({
   email: '',
-  acceptTerms: false
+  acceptTerms: false,
 });
 
-// Описание полей формы
-const fields = [
-  { label: 'Электронная почта', name: 'email', type: 'input', inputType: 'email' },
+// Описание полей формы с правильной типизацией
+const fields: FormField[] = [
+  { label: 'Электронная почта', name: 'email', type: 'input', inputType: 'email', placeholder: 'Введите ваш email' },
   { label: 'Согласие с условиями', name: 'acceptTerms', type: 'checkbox' }
 ];
 </script>
